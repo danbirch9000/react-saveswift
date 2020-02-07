@@ -5,11 +5,11 @@ import PropTypes from "prop-types";
 const AccountList = props => {
   const accountItems = props.accounts.map(item => {
     return (
-        <div key={item.id}>
-          <AccountListItem
-              account={item}
-          />
-        </div>
+      <div key={item.id}>
+        <AccountListItem
+          account={item}
+        />
+      </div>
     );
   });
 

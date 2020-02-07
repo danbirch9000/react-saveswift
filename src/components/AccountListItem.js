@@ -1,10 +1,25 @@
 import React from "react";
+import PropTypes from "prop-types";
 
 const AccountListItem = (props) => {
 
+  const accountItems = props.account.history.map(item => {
+    return (
+      <div key={item.id}>
+        {item.date} - &pound;{item.value}
+      </div>
+    );
+  });
+
   return (
-    <p>{props.account.name}</p>
+    <div>
+      <p>{props.account.name}</p>
+      {accountItems}
+    </div>
   );
 };
 
+AccountListItem.propTypes = {
+  account: PropTypes.object
+};
 export default AccountListItem;

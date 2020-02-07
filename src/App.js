@@ -2,6 +2,7 @@ import "./App.css";
 import React, { Component } from "react";
 import AccountList from "./components/AccountList";
 import {inject, observer} from "mobx-react";
+import PropTypes from "prop-types";
 
 class App extends Component {
   constructor(props) {
@@ -10,21 +11,23 @@ class App extends Component {
   }
 
   render() {
-      const store = this.props.storeAccounts;
-      let output = "";
-      if(store.accounts.loading){
-         output = (
-             <div>loading</div>
-         )
-      }else if(store.accounts.data){
+    const store = this.props.storeAccounts;
+    let output = "";
+    if(store.accounts.loading){
       output = (
-          <div>
-            <AccountList accounts={store.accountsForUser} />
-          </div>
+        <div>loading</div>
+      );
+    }else if(store.accounts.data){
+      output = (
+        <div>
+          <AccountList accounts={store.accountsForUser} />
+        </div>
       );
     }
     return output;
   }
 }
-
-export default inject('storeAccounts')(observer(App));
+App.propTypes = {
+  storeAccounts: PropTypes.object
+};
+export default inject("storeAccounts")(observer(App));

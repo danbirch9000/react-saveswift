@@ -1,9 +1,7 @@
 module.exports = {
     "env": {
         "browser": true,
-        "node": true,
-        "es6": true,
-        "jest": true
+        "es6": true
     },
     "extends": [
         "eslint:recommended",
@@ -13,6 +11,7 @@ module.exports = {
         "Atomics": "readonly",
         "SharedArrayBuffer": "readonly"
     },
+    "parser": "babel-eslint",
     "parserOptions": {
         "ecmaFeatures": {
             "jsx": true
