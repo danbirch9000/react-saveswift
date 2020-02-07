@@ -26,7 +26,7 @@ const payload = {
       intervals: 60,
       incrementRange: [300, 850]
     }),
-    name: "1"
+    name: "Account 1"
   },
   [uuidv4()]: {
     history: buildData({
@@ -34,7 +34,7 @@ const payload = {
       intervals: 28,
       incrementRange: [400, 450]
     }),
-    name: "2"
+    name: "Account 2"
   },
   [uuidv4()]: {
     history: buildData({
@@ -42,7 +42,7 @@ const payload = {
       intervals: 15,
       incrementRange: [500, 750]
     }),
-    name: "3",
+    name: "Account 3",
   }
 };
 
@@ -50,5 +50,5 @@ module.exports = (request, response) => {
   setTimeout(() => {
     response.status(200).send(payload);
     // response.status(404).send(payloadOneResult);
-  }, utils.getRandomArbitrary(3000, 5000));
+  }, utils.getRandomArbitrary(200, 2000));
 };

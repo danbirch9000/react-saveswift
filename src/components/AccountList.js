@@ -3,19 +3,19 @@ import AccountListItem from "./AccountListItem";
 import PropTypes from "prop-types";
 
 const AccountList = props => {
-  console.log(props);
-  const videoItems = props.accounts.map(item => {
+  const accountItems = props.accounts.map(item => {
     return (
-      <AccountListItem
-        account={item}
-        key={item.id}
-      />
+        <div key={item.id}>
+          <AccountListItem
+              account={item}
+          />
+        </div>
     );
   });
 
   return (
     <div>
-      {videoItems}
+      {accountItems}
     </div>
   );
 };

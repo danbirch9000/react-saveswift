@@ -1,36 +1,30 @@
 import "./App.css";
 import React, { Component } from "react";
-import {_axios} from "./config/axios-utils";
 import AccountList from "./components/AccountList";
+import {inject, observer} from "mobx-react";
 
 class App extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      accounts: []
-    };
-    this.accountSearch();
-  }
-
-  async accountSearch() {
-    const search = await _axios.get("/accounts/auth0%7C5b941aa872d4bb47f9a32abd.json");
-    this.setState({ accounts: Object.keys(search.data).map(o => {
-      return {
-        ...search.data[o],
-        id: o
-      };
-    }) });
-    console.log({state: this.state});
+    this.props.storeAccounts.GET_ACCOUNTS();
   }
 
   render() {
-    return (
-      <div>
-        <p>{this.state.accounts.length}</p>
-        <AccountList accounts={this.state.accounts} />
-      </div>
-    );
+      if(this.props.storeAccounts.accounts.loading){
+         return (
+             <div>loading</div>
+         )
+      }else if(this.props.storeAccounts.accounts.data){
+      return (
+          <div>
+            <AccountList accounts={this.props.storeAccounts.accounts.data} />
+          </div>
+      );
+    }
+    else{
+      return null
+    }
   }
 }
 
-export default App;
+export default inject('storeAccounts')(observer(App));
