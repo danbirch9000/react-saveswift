@@ -1,5 +1,19 @@
 import { observable, computed, action, decorate } from "mobx";
 import {_axios} from "../config/axios-utils";
+
+export const axiosGetRequest = async ({url, store}) => {
+    store.loading = true;
+    try{
+        const request =  await _axios.get(url);
+        store.loading = false;
+        store.data = request.data;
+        return request;
+    }catch (e) {
+        return Promise.reject()
+    }
+
+}
+
 export default class AccountsStore {
     //state
     accounts = {
@@ -9,25 +23,30 @@ export default class AccountsStore {
     };
 
     //actions
-    async GET_ACCOUNTS(){
-        this.accounts.loading = true;
-        const search = await _axios.get("/accounts/auth0%7C5b941aa872d4bb47f9a32abd.json");
-        this.accounts.loading = false;
-        this.accounts.data = Object.keys(search.data).map(o => {
-            return {
-                ...search.data[o],
-                id: o
-            };
-        }) ;
+    GET_ACCOUNTS(){
+        return axiosGetRequest({
+            url: "/accounts/auth0%7C5b941aa872d4bb47f9a32abd.json",
+            store: this.accounts
+        });
     }
 
     //computed
-    get totalAccounts() {
-        return this.accounts.data?.length;
+    get accountsForUser() {
+        if(!this.accounts.data) return [];
+
+        const data = Object.keys(this.accounts.data).map(o => {
+            return {
+                ...this.accounts.data[o],
+                id: o
+            };
+        }) ;
+
+        return data;
+
     }
 }
 decorate(AccountsStore, {
     accounts: observable,
-    totalAccounts: computed,
+    accountsForUser: computed,
     GET_ACCOUNTS: action
 })

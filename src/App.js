@@ -10,20 +10,20 @@ class App extends Component {
   }
 
   render() {
-      if(this.props.storeAccounts.accounts.loading){
-         return (
+      const store = this.props.storeAccounts;
+      let output = "";
+      if(store.accounts.loading){
+         output = (
              <div>loading</div>
          )
-      }else if(this.props.storeAccounts.accounts.data){
-      return (
+      }else if(store.accounts.data){
+      output = (
           <div>
-            <AccountList accounts={this.props.storeAccounts.accounts.data} />
+            <AccountList accounts={store.accountsForUser} />
           </div>
       );
     }
-    else{
-      return null
-    }
+    return output;
   }
 }
 
