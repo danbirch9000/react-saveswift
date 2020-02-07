@@ -1,9 +1,9 @@
 import React from "react";
 import AccountListItem from "./AccountListItem";
+import PropTypes from "prop-types";
 
 const AccountList = props => {
   console.log(props);
-  // eslint-disable-next-line react/prop-types
   const videoItems = props.accounts.map(item => {
     return (
       <AccountListItem
@@ -18,6 +18,10 @@ const AccountList = props => {
       {videoItems}
     </div>
   );
+};
+
+AccountList.propTypes = {
+  accounts: PropTypes.array,
 };
 
 export default AccountList;

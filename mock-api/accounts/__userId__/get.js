@@ -1,10 +1,8 @@
 const utils = require("../../utils");
-import { uuid } from "vue-uuid";
+const moment = require("moment");
+const uuidv4 = require("uuid/v4");
 
-import moment from "moment";
-export const timestamp = moment().format();
-
-export const buildData = ({yearRange, intervals, incrementRange}) => {
+const buildData = ({yearRange, intervals, incrementRange}) => {
   const start = moment().subtract(yearRange, "years");
   const daysDiff = moment().diff(start, "days");
   const dayInterval = Math.floor(daysDiff/intervals);
@@ -13,7 +11,7 @@ export const buildData = ({yearRange, intervals, incrementRange}) => {
   [...Array(intervals)].forEach((i,x) => {
     const inc = utils.getRandomArbitrary(incrementRange[0], incrementRange[1]);
     deposits = deposits + (deposits * 0.02) + inc;
-    history[uuid.v4()] = {
+    history[uuidv4()] = {
       date: start.add(x*dayInterval, "days").format(),
       value: parseFloat(deposits.toFixed(2))
     };
@@ -21,8 +19,8 @@ export const buildData = ({yearRange, intervals, incrementRange}) => {
   return history;
 };
 
-export const payload = {
-  [uuid.v4()]: {
+const payload = {
+  [uuidv4()]: {
     history: buildData({
       yearRange: 10,
       intervals: 60,
@@ -30,7 +28,7 @@ export const payload = {
     }),
     name: "1"
   },
-  [uuid.v4()]: {
+  [uuidv4()]: {
     history: buildData({
       yearRange: 5,
       intervals: 28,
@@ -38,7 +36,7 @@ export const payload = {
     }),
     name: "2"
   },
-  [uuid.v4()]: {
+  [uuidv4()]: {
     history: buildData({
       yearRange: 2,
       intervals: 15,
@@ -48,9 +46,9 @@ export const payload = {
   }
 };
 
-// module.exports = (request, response) => {
-//   setTimeout(() => {
-//     response.status(200).send(payload);
-//     // response.status(404).send(payloadOneResult);
-//   }, utils.getRandomArbitrary(3000, 5000));
-// };
+module.exports = (request, response) => {
+  setTimeout(() => {
+    response.status(200).send(payload);
+    // response.status(404).send(payloadOneResult);
+  }, utils.getRandomArbitrary(3000, 5000));
+};
