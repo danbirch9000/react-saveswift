@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import Account from "./containers/Account";
-import {Route, NavLink} from "react-router-dom";
+import AccountDetails from "./containers/AccountDetails";
+import Header from "./components/Header/Header";
+import {Route} from "react-router-dom";
 import "./App.scss";
 
 class App extends Component {
@@ -22,19 +24,11 @@ class App extends Component {
     console.log("[App.js] render");
     return (
       <div>
-        <nav>
-          <h3>Header</h3>
-        </nav>
-        <NavLink to="/" 
-          className="button"
-          activeClassName='button-active'
-          exact>Home</NavLink>
-        <NavLink to={{pathname:"/Accounts"}} 
-          exact 
-          activeClassName='button-active'
-          className="button">Accounts</NavLink>
-        {/*<Route path="/Accounts" exact render={()=> <h1>Acc</h1>}/>*/}
-        <Route path="/Accounts" exact component={Account}/>
+        <Header/>
+        <div className="container">
+          <Route path="/Accounts" exact component={Account}/>
+          <Route path="/Accounts/:id" exact component={AccountDetails}/>
+        </div>
       </div>
     );
   }

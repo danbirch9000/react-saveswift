@@ -1,22 +1,14 @@
 import React from "react";
 import PropTypes from "prop-types";
 import "./AccountListItem.scss";
+import {Link} from "react-router-dom";
 
 const AccountListItem = (props) => {
-
-  const accountItems = props.account.history.map(item => {
-    return (
-      <div className="account-item" key={item.id}>
-        <span>{item.date}</span>
-        <span>&pound;{item.value}</span>
-      </div>
-    );
-  });
-
   return (
     <div className="account-list-item">
       <h3>{props.account.name}</h3>
-      {accountItems}
+      <Link to={{pathname:`/Accounts/${props.account.id}`}}
+        className="button">Go</Link>
     </div>
   );
 };
