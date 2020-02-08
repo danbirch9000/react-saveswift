@@ -1,0 +1,13 @@
+.account-list-item {
+  border: 1px #cccccc solid;
+  margin: 5px;
+  padding: 20px;
+
+  .account-item {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    > span {
+      padding: 3px;
+    }
+  }
+}

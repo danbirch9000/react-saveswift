@@ -1,19 +1,21 @@
 import React from "react";
 import PropTypes from "prop-types";
+import "./AccountListItem.scss";
 
 const AccountListItem = (props) => {
 
   const accountItems = props.account.history.map(item => {
     return (
-      <div key={item.id}>
-        {item.date} - &pound;{item.value}
+      <div className="account-item" key={item.id}>
+        <span>{item.date}</span>
+        <span>&pound;{item.value}</span>
       </div>
     );
   });
 
   return (
-    <div>
-      <p>{props.account.name}</p>
+    <div className="account-list-item">
+      <h3>{props.account.name}</h3>
       {accountItems}
     </div>
   );

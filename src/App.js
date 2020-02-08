@@ -1,33 +1,45 @@
-import "./App.css";
 import React, { Component } from "react";
-import AccountList from "./components/AccountList";
-import {inject, observer} from "mobx-react";
-import PropTypes from "prop-types";
+import Account from "./containers/Account";
+import {Route, NavLink} from "react-router-dom";
+import "./App.scss";
 
 class App extends Component {
   constructor(props) {
     super(props);
-    this.props.storeAccounts.GET_ACCOUNTS();
+    console.log("[App.js] constructor");
+  }
+    
+  // static getDerivedStateFromProps(props, state){
+  //   console.log("[App.js] getDerivedStateFromProps", props);
+  //   return state;
+  // }
+  //
+  componentDidMount() {
+    console.log("[App.js] componentDidMount", this.props);
   }
 
   render() {
-    const store = this.props.storeAccounts;
-    let output = "";
-    if(store.accounts.loading){
-      output = (
-        <div>loading</div>
-      );
-    }else if(store.accounts.data){
-      output = (
-        <div>
-          <AccountList accounts={store.accountsForUser} />
-        </div>
-      );
-    }
-    return output;
+    console.log("[App.js] render");
+    return (
+      <div>
+        <nav>
+          <h3>Header</h3>
+        </nav>
+        <NavLink to="/" 
+          className="button"
+          activeClassName='button-active'
+          exact>Home</NavLink>
+        <NavLink to={{pathname:"/Accounts"}} 
+          exact 
+          activeClassName='button-active'
+          className="button">Accounts</NavLink>
+        {/*<Route path="/Accounts" exact render={()=> <h1>Acc</h1>}/>*/}
+        <Route path="/Accounts" exact component={Account}/>
+      </div>
+    );
   }
+  
+  
 }
-App.propTypes = {
-  storeAccounts: PropTypes.object
-};
-export default inject("storeAccounts")(observer(App));
+
+export default App;

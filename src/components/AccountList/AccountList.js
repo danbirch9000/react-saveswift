@@ -1,5 +1,5 @@
 import React from "react";
-import AccountListItem from "./AccountListItem";
+import AccountListItem from "../AccountListItem/AccountListItem";
 import PropTypes from "prop-types";
 
 const AccountList = props => {

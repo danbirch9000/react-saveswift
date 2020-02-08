@@ -12,8 +12,8 @@ const buildData = ({yearRange, intervals, incrementRange}) => {
     const inc = utils.getRandomArbitrary(incrementRange[0], incrementRange[1]);
     deposits = deposits + (deposits * 0.02) + inc;
     history[uuidv4()] = {
-      date: start.add(x*dayInterval, "days").format(),
-      value: parseFloat(deposits.toFixed(2))
+      date: moment().subtract(yearRange, "years").add(x*dayInterval, "days").format(),
+      value: deposits.toFixed(2)
     };
   });
   return history;

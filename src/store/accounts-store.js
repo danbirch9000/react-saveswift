@@ -7,6 +7,7 @@ export default class AccountsStore {
 
     //actions
     GET_ACCOUNTS(){
+      console.log("GET_ACCOUNTS");
       return axiosGetRequest({
         url: "/accounts/auth0%7C5b941aa872d4bb47f9a32abd.json",
         store: this.accounts
