@@ -4,7 +4,6 @@ import PropTypes from "prop-types";
 import AccountList from "../components/AccountList/AccountList";
 import DataLoading from "../components/DataLoading/DataLoading";
 
-
 class Account extends Component {
   constructor(props) {
     super(props);
@@ -13,6 +12,7 @@ class Account extends Component {
   componentDidMount() {
     console.log("[App.js] componentDidMount", this.props);
   }
+
   render() {
     const store = this.props.storeAccounts;
     let output = "";

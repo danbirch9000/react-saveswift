@@ -5,10 +5,14 @@ import { Provider } from "mobx-react";
 import AccountsStore from "./store/accounts-store";
 import { BrowserRouter } from "react-router-dom";
 import "./sass/milligram/milligram.sass";
+import {withToastProvider} from "./components/Toast";
+
+const AppWithToastProvider = withToastProvider(App);
+
 
 ReactDOM.render(
   <Provider storeAccounts={new AccountsStore()}>
     <BrowserRouter>
-      <App />
+      <AppWithToastProvider />
     </BrowserRouter>
   </Provider>, document.getElementById("root"));
