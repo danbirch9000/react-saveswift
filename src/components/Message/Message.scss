@@ -1,0 +1,30 @@
+@import "../../../src/sass/milligram/Color";
+@import "../../../src/sass/Mixins";
+.alert-message {
+  font-weight: 500;
+  margin: space(3) 0;
+  padding: space(2);
+  color: white;
+  position: relative;
+  border-radius: 5px;
+  display: grid;
+  grid-template-columns: 40px 1fr;
+}
+.alert-message-inner {
+  align-self: center;
+}
+.alert-message-default {
+  background: $color-primary;
+}
+.alert-message-info {
+  background: $color-mono-9;
+}
+.alert-message-success {
+  background: $color-theme-success;
+}
+.alert-message-warning {
+  background: $color-theme-warning;
+}
+.alert-message-error {
+  background: $color-theme-error;
+}

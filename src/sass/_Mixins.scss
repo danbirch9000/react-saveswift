@@ -1,0 +1,25 @@
+///**
+// * Space function
+// */
+
+@function space($number) {
+  $result: 0px;
+  @if $number == 1 {
+    $result: 4px;
+  } @else if $number == 2 {
+    $result: 8px;
+  } @else if $number == 3 {
+    $result: 12px;
+  } @else if $number == 4 {
+    $result: 16px;
+  } @else if $number == 5 {
+    $result: 20px;
+  } @else if $number == 6 {
+    $result: 24px;
+  } @else if $number == 7 {
+    $result: 28px;
+  } @else if $number == 8 {
+    $result: 32px;
+  }
+  @return $result;
+}

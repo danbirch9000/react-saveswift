@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import {inject, observer} from "mobx-react";
 import PropTypes from "prop-types";
 import AccountList from "../components/AccountList/AccountList";
+import DataLoading from "../components/DataLoading/DataLoading";
 
 
 class Account extends Component {
@@ -15,17 +16,15 @@ class Account extends Component {
   render() {
     const store = this.props.storeAccounts;
     let output = "";
-    if(store.accounts.loading){
-      output = (
-        <div>loading</div>
-      );
-    }else if(store.accounts.data){
-      output = (
-        <div>
-          <AccountList accounts={store.accountsForUser} />
-        </div>
-      );
-    }
+    output = (
+      <div>
+        <DataLoading
+          state={store.accounts}
+          loadingMessage="Getting accounts..."
+          slot={<AccountList accounts={store.accountsForUser} />}
+        />
+      </div>
+    );
     return output;
   }
 }
