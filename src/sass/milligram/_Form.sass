@@ -1,4 +1,4 @@
-
+@import "Color"
 // Form
 // ––––––––––––––––––––––––––––––––––––––––––––––––––
 
@@ -20,7 +20,7 @@ select
 	height: 3.8rem
 	padding: .6rem 1.0rem // The .6rem vertically centers text on FF, ignored by Webkit
 	width: 100%
-
+	margin-bottom: 0
 	&:focus
 		border-color: $color-primary
 		outline: 0
@@ -54,3 +54,10 @@ input[type='radio']
 	display: inline-block
 	font-weight: normal
 	margin-left: .5rem
+
+.input-container
+	margin-bottom: .5rem
+
+.form-input-validation
+	color: $color-theme-error
+	font-size: 1.3rem

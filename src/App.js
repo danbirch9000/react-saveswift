@@ -1,9 +1,13 @@
 import React, { Component } from "react";
 import Account from "./containers/Account";
+import {inject, observer} from "mobx-react";
 import AccountDetails from "./containers/AccountDetails";
+import CreateAccount from "./containers/CreateAccount";
+import Home from "./containers/Home";
 import Header from "./components/Header/Header";
 import {Route} from "react-router-dom";
 import "./App.scss";
+import PropTypes from "prop-types";
 
 class App extends Component {
   constructor(props) {
@@ -18,6 +22,8 @@ class App extends Component {
   //
   componentDidMount() {
     console.log("[App.js] componentDidMount", this.props);
+    this.props.storeAccounts.GET_GOALS();
+
   }
 
   render() {
@@ -26,8 +32,10 @@ class App extends Component {
       <div>
         <Header/>
         <div className="container">
-          <Route path="/Accounts" exact component={Account}/>
-          <Route path="/Accounts/:id" exact component={AccountDetails}/>
+          <Route path="/" exact component={Home}/>
+          <Route path="/accounts" exact component={Account}/>
+          <Route path="/accounts/:id" exact component={AccountDetails}/>
+          <Route path="/create-account" exact component={CreateAccount}/>
         </div>
       </div>
     );
@@ -35,5 +43,7 @@ class App extends Component {
   
   
 }
-
-export default App;
+App.propTypes = {
+  storeAccounts: PropTypes.object
+};
+export default inject("storeAccounts")(observer(App));

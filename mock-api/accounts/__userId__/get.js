@@ -50,5 +50,5 @@ module.exports = (request, response) => {
   setTimeout(() => {
     response.status(200).send(payload);
     // response.status(404).send(payloadOneResult);
-  }, utils.getRandomArbitrary(200, 2000));
+  }, utils.getRandomArbitrary(1000, 2000));
 };

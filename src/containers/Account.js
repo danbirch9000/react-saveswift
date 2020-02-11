@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import {Link} from "react-router-dom";
 import {inject, observer} from "mobx-react";
 import PropTypes from "prop-types";
 import AccountList from "../components/AccountList/AccountList";
@@ -7,21 +8,30 @@ import DataLoading from "../components/DataLoading/DataLoading";
 class Account extends Component {
   constructor(props) {
     super(props);
-    this.props.storeAccounts.GET_ACCOUNTS();
-  }
-  componentDidMount() {
     console.log("[App.js] componentDidMount", this.props);
+
+  }
+  componentDidCatch(error, errorInfo) {
+    console.log({error, errorInfo});
+  }
+
+  componentDidMount() {
+    this.props.storeAccounts.GET_ACCOUNTS();
   }
 
   render() {
-    const store = this.props.storeAccounts;
+    console.log("rendering ACCOUNT");
     let output = "";
     output = (
       <div>
+        {this.props.storeAccounts.accounts.loading}
+        <Link to="/create-account" className="button">Create account</Link>
         <DataLoading
-          state={store.accounts}
+          state={this.props.storeAccounts.accounts}
           loadingMessage="Getting accounts..."
-          slot={<AccountList accounts={store.accountsForUser} />}
+          slot={
+            <AccountList accounts={this.props.storeAccounts.accountsForUser} 
+            />}
         />
       </div>
     );

@@ -1,16 +1,19 @@
 import React from "react";
 import PropTypes from "prop-types";
+import {ICON_TYPES} from "../../config/types";
 import Message from "../../components/Message/Message";
 
 const DataLoading = (props) => {
-  
+  console.log("Dataloading", props);
   let output = "";
-  if(props.state.loading){
-    output = <Message message={props.loadingMessage}/>;
+  if(props.state.loading) {
+    output = <Message message={props.loadingMessage} type={ICON_TYPES.LOADER}/>;
+  }else if(props.state.errorMessage){
+    output = <Message message={props.state.errorMessage} type={ICON_TYPES.ERROR}/>;
   }else {
     output = props.slot;
   }
-  
+
   return (
     <div>
       {output}

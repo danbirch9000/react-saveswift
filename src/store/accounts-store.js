@@ -4,14 +4,28 @@ import {baseState, axiosGetRequest} from "../config/axios-utils";
 export default class AccountsStore {
     //state
     accounts = baseState();
+    goals = baseState();
+    actions = {
+      updateAccount: baseState(),
+      deleteAccount: baseState(),
+      createAccount: baseState()
+    };
 
     //actions
     GET_ACCOUNTS(){
-      console.log("GET_ACCOUNTS");
       return axiosGetRequest({
         url: "/accounts/auth0%7C5b941aa872d4bb47f9a32abd.json",
-        store: this.accounts
+        store: this.accounts,
+        error: "Error getting user accounts"
       });
+    }
+
+    GET_GOALS(){
+      return axiosGetRequest({
+        url: "/goals/auth0%7C5b941aa872d4bb47f9a32abd.json",
+        store: this.goals,
+        error: "Error getting goals for user"
+      }); 
     }
 
     //computed
@@ -34,6 +48,8 @@ export default class AccountsStore {
 }
 decorate(AccountsStore, {
   accounts: observable,
+  goals: observable,
+  actions: observable,
   accountsForUser: computed,
   GET_ACCOUNTS: action
 });

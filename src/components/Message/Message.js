@@ -5,8 +5,8 @@ import "./Message.scss";
 
 const Message = (props) => {
   return (
-    <div className="alert-message alert-message-info">
-      <Icon />
+    <div className={`alert-message alert-message-${props.type}`}>
+      <Icon icon={props.type} />
       <div className="alert-message-inner">
         {props.message}
       </div>
@@ -15,7 +15,8 @@ const Message = (props) => {
 };
 
 Message.propTypes = {
-  message: PropTypes.string
+  message: PropTypes.string,
+  type: PropTypes.string
 };
 
 export default Message;
