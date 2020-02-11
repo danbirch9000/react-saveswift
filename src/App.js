@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import Account from "./containers/Account";
 import {inject, observer} from "mobx-react";
-import AccountDetails from "./containers/AccountDetails";
+import AccountDetails from "./containers/AccountDetails/AccountDetails";
 import CreateAccount from "./containers/CreateAccount";
 import Home from "./containers/Home";
 import Header from "./components/Header/Header";

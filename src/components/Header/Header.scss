@@ -1,0 +1,15 @@
+.main-logo {
+  width: 200px;
+}
+
+nav {
+  display: grid;
+  grid-template-columns: 200px 1fr;
+  grid-gap: 20px;
+  .links {
+    align-self: center;
+    a {
+      margin-left: 20px;
+    }
+  }
+}

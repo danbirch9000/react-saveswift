@@ -24,7 +24,6 @@ class Account extends Component {
     let output = "";
     output = (
       <div>
-        {this.props.storeAccounts.accounts.loading}
         <Link to="/create-account" className="button">Create account</Link>
         <DataLoading
           state={this.props.storeAccounts.accounts}

@@ -4,7 +4,9 @@ import {inject, observer} from "mobx-react";
 import * as am4core from "@amcharts/amcharts4/core";
 import * as am4charts from "@amcharts/amcharts4/charts";
 import am4themes_animated from "@amcharts/amcharts4/themes/animated";
-import {buildChart} from "../config/amcharts-utils";
+import {buildChart} from "../../config/amcharts-utils";
+import moment from "moment";
+import "./AccountDetails.scss";
 
 am4core.useTheme(am4themes_animated);
 class AccountDetails extends Component {
@@ -45,7 +47,7 @@ class AccountDetails extends Component {
       accountItems = account[0].history.map(item => {
         return (
           <div className="account-item" key={item.id}>
-            <span>{item.date}</span>
+            <span>{moment(item.date).format("DD-MM-YYYY")}</span>
             <span>&pound;{item.value}</span>
           </div>
         );
@@ -53,10 +55,16 @@ class AccountDetails extends Component {
     }
     
     return (
-      <div>
-        <div id="chartdiv" style={{ width: "100%", height: "500px" }}></div>
-        {accountItems}
-        <p>account details {this.props.match.params.id}</p>
+      <div className="row">
+        <div className="column column-75">
+          <div id="chartdiv" style={{ width: "100%", height: "500px" }}></div>
+        </div>
+        <div className="column column-25">
+          <h3>Account history</h3>
+          <div className="account-history">
+            {accountItems}
+          </div>
+        </div>
       </div>
     );
   }
