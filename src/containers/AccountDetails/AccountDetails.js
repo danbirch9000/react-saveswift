@@ -1,71 +1,59 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import {inject, observer} from "mobx-react";
-import * as am4core from "@amcharts/amcharts4/core";
-import * as am4charts from "@amcharts/amcharts4/charts";
-import am4themes_animated from "@amcharts/amcharts4/themes/animated";
-import {buildChart} from "../../config/amcharts-utils";
-import moment from "moment";
-import "./AccountDetails.scss";
 
-am4core.useTheme(am4themes_animated);
+import "./AccountDetails.scss";
+import AccountHistoryTable from 
+  "../../components/AccountHistoryTable/AccountHistoryTable";
+import DataLoading from "../../components/DataLoading/DataLoading";
+import LineChart from "../../components/LineChart/LineChart";
 class AccountDetails extends Component {
   constructor(props) {
     super(props);
-    console.log("[App.js] constructor");
+    this.state = {chartData: null};
   }
-  componentDidMount() {
-    console.log("[App.js] componentDidMount", this.props);
+  async componentDidMount() {
     if(!this.props.storeAccounts.accounts.data){
-      this.props.storeAccounts.GET_ACCOUNTS();
+      await this.props.storeAccounts.GET_ACCOUNTS();
+      this.setChartData();
+    }else{
+      this.setChartData();
     }
-
-    let chart = am4core.create("chartdiv", am4charts.XYChart);
-
-    const account = this.props.storeAccounts.accountsForUser.filter(o =>{
-      return o.id === this.props.match.params.id;
-    });
-
-    if(account.length){
-      chart.data = account[0].history.map(item => {
-        return {
-          date: item.date,
-          value: item.value
-        };
-      });
-    }
-
-    chart = buildChart(chart);
-
   }
-  render() {
+  setChartData = () => {
     const account = this.props.storeAccounts.accountsForUser.filter(o =>{
       return o.id === this.props.match.params.id;
     });
-    let accountItems = "";
     if(account.length){
-      accountItems = account[0].history.map(item => {
-        return (
-          <div className="account-item" key={item.id}>
-            <span>{moment(item.date).format("DD-MM-YYYY")}</span>
-            <span>&pound;{item.value}</span>
-          </div>
-        );
+      this.setState({
+        chartData: account[0].history.map(item => {
+          return {
+            date: item.date,
+            value: item.value
+          };
+        })
       });
     }
-    
-    return (
-      <div className="row">
-        <div className="column column-75">
-          <div id="chartdiv" style={{ width: "100%", height: "500px" }}></div>
-        </div>
-        <div className="column column-25">
-          <h3>Account history</h3>
-          <div className="account-history">
-            {accountItems}
-          </div>
-        </div>
+  }
+
+  render() {
+    const output = <div className="row">
+      <div className="column column-75">
+        <LineChart chartData={this.state.chartData}/>
       </div>
+      <div className="column column-25">
+        <AccountHistoryTable
+          accountsForUser={this.props.storeAccounts.accountsForUser}
+          match={this.props.match}
+        />
+      </div>
+    </div>;
+    return (
+      <DataLoading
+        state={this.props.storeAccounts.accounts}
+        loadingMessage="Getting accounts..."
+        slot={output}
+      />
     );
   }
 }

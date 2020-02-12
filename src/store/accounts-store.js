@@ -1,4 +1,4 @@
-import { observable, computed, action, decorate } from "mobx";
+import { observable, computed, action, decorate, runInAction } from "mobx";
 import {baseState, axiosGetRequest} from "../config/axios-utils";
 
 export default class AccountsStore {
@@ -17,7 +17,7 @@ export default class AccountsStore {
         url: "/accounts/auth0%7C5b941aa872d4bb47f9a32abd.json",
         store: this.accounts,
         error: "Error getting user accounts"
-      });
+      }, runInAction);
     }
 
     GET_GOALS(){
