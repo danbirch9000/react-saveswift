@@ -1,15 +1,89 @@
-.main-logo {
-  width: 200px;
+@import "../../sass/milligram/Color";
+nav {
+  display: block;
+  border-bottom: 1px $color-mono-6 solid;
+  height: 60px;
+  .logos {
+    z-index: 2;
+    background-color: white;
+    position: absolute;
+    top:0;
+    left: 0;
+    width: 100%;
+    height: 59px;
+  }
+  .links {
+    position: absolute;
+    display: block;
+    top: -100px;
+    text-align: center;
+    left: 0;
+    width: 100%;
+    background-color: white;
+    z-index: 1;
+    transition: top 0.25s;
+    &.active {
+      top: 60px;
+      transition: top 0.25s;
+    }
+    a {
+      display: block;
+      border-bottom: 1px $color-mono-6 solid;
+      padding: 10px 0;
+      background-color: $color-mono-3;
+      &:hover {
+        background-color: $color-mono-4;
+      }
+    }
+  }
+  .main-logo {
+    width: 200px;
+    margin: 10px auto 0;
+    display: block;
+  }
+  .burger-icon {
+    position: absolute;
+    right: 10px;
+    top: 15px;
+    cursor: pointer;
+    fill: $color-mono-7;
+    &:hover {
+      fill: $color-mono-9;
+    }
+  }
 }
 
-nav {
-  display: grid;
-  grid-template-columns: 200px 1fr;
-  grid-gap: 20px;
-  .links {
-    align-self: center;
-    a {
-      margin-left: 20px;
+@media only screen and (min-width: 600px) {
+  nav {
+    display: grid;
+    grid-template-columns: 200px auto;
+    .logos {
+      position: static;
+      background-color: transparent;
+    }
+    .links {
+      position: static;
+      z-index: 3;
+      width: auto;
+      background-color: transparent;
+      text-align: right;
+      a {
+        display: inline-block;
+        background-color: transparent;
+        border: none;
+        padding: 10px 20px;
+        &:hover {
+          background-color: transparent;
+        }
+      }
+    }
+    .main-logo {
+      width: 200px;
+      margin: 0;
+      display: block;
+    }
+    .burger-icon {
+      display: none;
     }
   }
 }
