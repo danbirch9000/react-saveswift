@@ -1,7 +1,9 @@
 import { observable, computed, action, decorate, runInAction } from "mobx";
-import {baseState, axiosGetRequest} from "../config/axios-utils";
+import {baseState, axiosRequest} from "../config/axios-utils";
 
 export default class AccountsStore {
+    userId = "000000001";
+
     //state
     accounts = baseState();
     goals = baseState();
@@ -13,19 +15,30 @@ export default class AccountsStore {
 
     //actions
     GET_ACCOUNTS(){
-      return axiosGetRequest({
-        url: "/accounts/auth0%7C5b941aa872d4bb47f9a32abd.json",
+      return axiosRequest({
+        url: `/accounts/${this.userId}.json`,
         store: this.accounts,
+        method: "get",
         error: "Error getting user accounts"
+      }, runInAction);
+    }
+    CREATE_ACCOUNT(payload){
+      return axiosRequest({
+        url: `/accounts/${this.userId}.json`,
+        store: this.actions.createAccount,
+        method: "post",
+        data: payload,
+        error: "Error creating account"
       }, runInAction);
     }
 
     GET_GOALS(){
-      return axiosGetRequest({
-        url: "/goals/auth0%7C5b941aa872d4bb47f9a32abd.json",
+      return axiosRequest({
+        url: `/goals/${this.userId}.json`,
         store: this.goals,
+        method: "get",
         error: "Error getting goals for user"
-      }); 
+      }, runInAction);
     }
 
     //computed
@@ -51,5 +64,6 @@ decorate(AccountsStore, {
   goals: observable,
   actions: observable,
   accountsForUser: computed,
-  GET_ACCOUNTS: action
+  GET_ACCOUNTS: action,
+  GET_GOALS: action
 });

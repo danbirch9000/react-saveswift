@@ -5,11 +5,21 @@ export const _axios = axios.create({
 });
 
 
-export const axiosGetRequest = async ({url, store, error}) => {
+export const axiosRequest = async ({
+  url, 
+  store, 
+  error, 
+  method,
+  data = null
+}) => {
   store.loading = true;
   store.errorMessage = null;
   try{
-    const request = await _axios.get(url);
+    const request = await _axios({
+      url,
+      method,
+      data
+    });
     runInAction(()=>{
       store.loading = false;
       store.data = request.data;
